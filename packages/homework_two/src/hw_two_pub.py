@@ -19,8 +19,12 @@ def hw_two_pub():
         move_msg.angular.x = 0.0
         move_msg.angular.y = 0.0
         move_msg.angular.z = 0.0
+        rospy.loginfo(move_msg)
         pub.publish(move_msg)
         
 if __name__ == "__main__":
-    hw_two_pub()  
+    try:
+        hw_two_pub()
+    except rospy.ROSInterruptException
+        pass 
 
