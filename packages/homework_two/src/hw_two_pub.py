@@ -11,7 +11,7 @@ def hw_two_pub():
     pub = rospy.Publisher('turtlesim/turtle1/cmd_vel', Twist, queue_size=10)
     rospy.init_node('hw_two_pub', anonymous=True)
     rate = rospy.Rate(1)
-    if not rospy.is_shutdown():
+    while not rospy.is_shutdown():
         move_msg = Twist()
         move_msg.linear.x = 1.0
         move_msg.linear.y = 1.0
