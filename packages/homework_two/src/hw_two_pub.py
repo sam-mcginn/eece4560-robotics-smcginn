@@ -25,6 +25,6 @@ def hw_two_pub():
 if __name__ == "__main__":
     try:
         hw_two_pub()
-    except rospy.ROSInterruptException
+    except rospy.ROSInterruptException:
         pass 
 
