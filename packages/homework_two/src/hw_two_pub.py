@@ -38,7 +38,7 @@ class Talker:
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
             i=4
-        else
+        else:
             move_msg.linear.x=0.0
             move_msg.linear.y=1.0
             move_msg.linear.z=0.0
