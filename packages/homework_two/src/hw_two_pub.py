@@ -14,7 +14,7 @@ class Talker:
 
     def talk(self):
         move_msg=Twist()
-        if i==1
+        if i==int(1)
             move_msg.linear.x=1.0
             move_msg.linear.y=0.0
             move_msg.linear.z=0.0
@@ -22,7 +22,7 @@ class Talker:
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
             i=2
-        elif i==2
+        elif i==int(2)
             move_msg.linear.x=0.0
             move_msg.linear.y= -1.0
             move_msg.linear.z=0.0
@@ -30,7 +30,7 @@ class Talker:
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
             i=3
-        elif i==3
+        elif i==int(3)
             move_msg.linear.x= -1.0
             move_msg.linear.y=0.0
             move_msg.linear.z=0.0
