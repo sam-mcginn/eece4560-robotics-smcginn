@@ -7,24 +7,28 @@ from turtlesim.msg import Pose
 import math
 import time
 
-def hw_two_pub():
-    pub = rospy.Publisher('turtlesim/turtle1/cmd_vel', Twist, queue_size=10)
-    rospy.init_node('hw_two_pub', anonymous=True)
-    rate = rospy.Rate(1)
-    while not rospy.is_shutdown():
-        move_msg = Twist()
-        move_msg.linear.x = 1.0
-        move_msg.linear.y = 1.0
-        move_msg.linear.z = 0.0
-        move_msg.angular.x = 0.0
-        move_msg.angular.y = 0.0
-        move_msg.angular.z = 0.0
-        rospy.loginfo(move_msg)
-        pub.publish(move_msg)
+class Talker:
+    def __init__(self):
+        self.pub=rospy.Publisher('turtle1/cmd_vel', Twist, queue_size=10)
+
+    def talk(self):
+        move_msg=Twist()
+        move_msg.linear.x=1.0
+        move_msg.linear.y=1.0
+        move_msg.linear.z=0.0
+        move_msg.angular.x=0.0
+        move_msg.angular.y=0.0
+        move_msg.angular.z=0.0
+        self.pub.publish(move_msg)
         
 if __name__ == "__main__":
     try:
-        hw_two_pub()
+        rospy.init_node('hw_two_pub', anonymous=True)
+        t=Talker()
+        rate=rospy.Rate(1)
+        while not rospy.is_shutdown():
+            t.talk()
+            rate.sleep()
     except rospy.ROSInterruptException:
         pass 
 
