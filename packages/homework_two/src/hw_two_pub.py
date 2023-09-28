@@ -45,13 +45,13 @@ class Talker:
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
             self.pub.publish(move_msg)
-        time.sleep(0.1)
+        time.sleep(0.9)
         move_msg.linear.x=0.0
         move_msg.linear.y=0.0
         move_msg.linear.z=0.0
         move_msg.angular.x=0.0
         move_msg.angular.y=0.0
-        move_msg.angular.z=1.0
+        move_msg.angular.z=100.0
         self.pub.publish(move_msg)
         
 if __name__ == "__main__":
