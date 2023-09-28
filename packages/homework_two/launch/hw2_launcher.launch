@@ -2,7 +2,7 @@
 
 <include file="$(find turtlesim_helper)/launch/turtlesim.launch"/>
 
-<group ns="homework2">
+<group ns="turtlesim">
 	<node pkg="homework_two" name="talker" type="hw_two_pub.py"/>
 </group>
 
