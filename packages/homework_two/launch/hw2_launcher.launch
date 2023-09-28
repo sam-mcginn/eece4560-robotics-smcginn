@@ -1,0 +1,9 @@
+<launch>
+
+<include file="$(find turtlesim_helper)/launch/turtlesim.launch"/>
+
+<group ns="homework2">
+	<node pkg="homework_two" name="talker" type="hw_two_pub.py"/>
+</group>
+
+</launch>
