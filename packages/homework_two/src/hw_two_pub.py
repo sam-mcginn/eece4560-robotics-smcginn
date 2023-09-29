@@ -20,7 +20,7 @@ class Talker:
             move_msg.angular.x=0.0
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
-            self.pub.publish(move_msg)
+            #self.pub.publish(move_msg)
         elif i==2:
             move_msg.linear.x=0.0
             move_msg.linear.y= -2.5
@@ -28,7 +28,7 @@ class Talker:
             move_msg.angular.x=0.0
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
-            self.pub.publish(move_msg)
+            #self.pub.publish(move_msg)
         elif i==3:
             move_msg.linear.x= -2.5
             move_msg.linear.y=0.0
@@ -36,7 +36,7 @@ class Talker:
             move_msg.angular.x=0.0
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
-            self.pub.publish(move_msg)
+            #self.pub.publish(move_msg)
         else:
             move_msg.linear.x=0.0
             move_msg.linear.y=2.5
@@ -44,14 +44,14 @@ class Talker:
             move_msg.angular.x=0.0
             move_msg.angular.y=0.0
             move_msg.angular.z=0.0
-            self.pub.publish(move_msg)
-        time.sleep(1)
-        move_msg.linear.x=0.0
-        move_msg.linear.y=0.0
-        move_msg.linear.z=0.0
-        move_msg.angular.x=0.0
-        move_msg.angular.y=0.0
-        move_msg.angular.z=89.0
+            #self.pub.publish(move_msg)
+        #time.sleep(1)
+        #move_msg.linear.x=0.0
+        #move_msg.linear.y=0.0
+        #move_msg.linear.z=0.0
+        #move_msg.angular.x=0.0
+        #move_msg.angular.y=0.0
+        #move_msg.angular.z=89.0
         self.pub.publish(move_msg)
         
 if __name__ == "__main__":
