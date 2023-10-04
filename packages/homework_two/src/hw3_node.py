@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import rospy
 import math
+import time
 from mystery_package.msg import UnitsLabelled
 from turtlesim.msg import Pose
 # UnitsLabelled = float32 value, string units
@@ -8,7 +9,7 @@ from turtlesim.msg import Pose
 
 class MeasureDist:
     def __init__(self):
-        self.pub = rospy.Publisher('turtle1/dist_traveled', UnitsLabelled, queue_size=10
+        # self.pub = rospy.Publisher('turtle1/dist_traveled', UnitsLabelled, queue_size=10
         rospy.Subscriber('turtle1/Pose', Pose, self.callback)
         self.curr_x = 0.0
         self.curr_y = 0.0
@@ -16,8 +17,8 @@ class MeasureDist:
         self.prev_y = 0.0
         self.start_flag = 0
         self.dist_total = 0.0
-        self.dist_msg = UnitsLabelled()
-        self.dist_msg.units = "meters"
+        # self.dist_msg = UnitsLabelled()
+        # self.dist_msg.units = "meters"
     
     def callback(self, msg):
         # update current and previous position
@@ -32,8 +33,9 @@ class MeasureDist:
         # calculate and publish distance traveled
         self.dist_total += math.sqrt( (self.curr_x - self.prev_x)**2 \
         + (self.curr_y - self.prev_y)**2 )
-        self.dist_msg.value = self.dist_total
-        self.pub.publish(dist_msg)
+        print(dist_total)
+        # self.dist_msg.value = self.dist_total
+        # self.pub.publish(dist_msg)
         
         
     
