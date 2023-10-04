@@ -18,7 +18,7 @@ class MeasureDist:
         self.start_flag = 0
         self.dist_total = 0.0
         self.dist_msg = UnitsLabelled()
-        #self.dist_msg.units = "meters"
+        self.dist_msg.units = "meters"
     
     def callback(self, msg):
         self.dist_total = 1.0
@@ -36,7 +36,7 @@ class MeasureDist:
         (self.curr_y - self.prev_y)**2 )
         #print(dist_total)
         self.dist_msg.value = self.dist_total
-        self.pub.publish(dist_msg)
+        self.pub.publish(self.dist_msg)
         
         
     
