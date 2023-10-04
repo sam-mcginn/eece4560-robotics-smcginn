@@ -39,7 +39,7 @@ class MeasureDist:
         
         
     
-if  __name__ = '__main__':
+if  __name__ == '__main__':
     rospy.init_node('measure_dist', anonymous = True)
     MeasureDist()
     rospy.spin()
