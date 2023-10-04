@@ -21,7 +21,6 @@ class MeasureDist:
         self.dist_msg.units = "meters"
     
     def callback(self, msg):
-        self.dist_total = 1.0
         # update current and previous position
         if self.start_flag == 0:
             self.curr_x = msg.x
