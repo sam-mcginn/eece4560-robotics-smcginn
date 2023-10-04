@@ -16,11 +16,12 @@ class MeasureDist:
         #self.prev_x = 0.0
         #self.prev_y = 0.0
         #self.start_flag = 0
-        #self.dist_total = 0.0
+        self.dist_total = 0.0
         #self.dist_msg = UnitsLabelled()
         #self.dist_msg.units = "meters"
     
     def callback(self, msg):
+        self.dist_total = 1.0
         # update current and previous position
         #if self.start_flag == 0:
             #self.curr_x = msg.x
@@ -39,7 +40,7 @@ class MeasureDist:
         
         
     
-if  __name__ == '__main__':
+if __name__ == '__main__':
     rospy.init_node('measure_dist', anonymous = True)
     MeasureDist()
     rospy.spin()
