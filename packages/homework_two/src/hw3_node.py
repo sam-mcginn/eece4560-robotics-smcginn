@@ -9,8 +9,8 @@ from turtlesim.msg import Pose
 
 class MeasureDist:
     def __init__(self):
-        self.pub = rospy.Publisher('turtle1/dist_traveled', UnitsLabelled, queue_size=10)
         rospy.Subscriber('turtle1/pose', Pose, self.callback)
+        self.pub = rospy.Publisher('turtle1/dist_traveled', UnitsLabelled, queue_size=10)
         self.curr_x = 0.0
         self.curr_y = 0.0
         self.prev_x = 0.0
@@ -31,8 +31,8 @@ class MeasureDist:
         self.curr_x = msg.x
         self.curr_y = msg.y
         # calculate and publish distance traveled
-        self.dist_total += math.sqrt( (self.curr_x - self.prev_x)**2 \
-        + (self.curr_y - self.prev_y)**2 )
+        self.dist_total += math.sqrt( (self.curr_x - self.prev_x)**2 + \
+        (self.curr_y - self.prev_y)**2 )
         #print(dist_total)
         self.dist_msg.value = self.dist_total
         self.pub.publish(dist_msg)
