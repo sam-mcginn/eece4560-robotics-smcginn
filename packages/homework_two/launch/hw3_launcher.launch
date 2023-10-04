@@ -4,8 +4,8 @@
 
 <group ns="turtlesim">
 	<node pkg="homework_two" name="measure_dist" type="hw3_node.py"/>
-	<node pkg=”rqt_graph” name=”rqt_graph” type=”rqt_graph” />
-	<node pkg=”rostopic” name=”rostopic” type=”rostopic” output=”screen” args=”echo dist_traveled” />
+	<node pkg="rqt_graph" name="rqt_graph" type="rqt_graph" />
+	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="echo dist_traveled" />
 </group>
 
 </launch>
