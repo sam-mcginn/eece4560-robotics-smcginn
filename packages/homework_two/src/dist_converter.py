@@ -6,7 +6,7 @@ from mystery_package.msg import UnitsLabelled
 from std_msgs.msg import String
 # UnitsLabelled = float32 value, string units
 
-Class DistanceConverter:
+class DistanceConverter:
     def __init__(self):
         self.curr_unit = "smoots"
         rospy.Subscriber('turtle1/dist_measured', UnitsLabelled, self.convert)

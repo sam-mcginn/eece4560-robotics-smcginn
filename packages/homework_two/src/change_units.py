@@ -6,7 +6,7 @@ from mystery_package.msg import UnitsLabelled
 from std_msgs.msg import String
 # UnitsLabelled = float32 value, string units
 
-Class ChangeUnits:
+class ChangeUnits:
     def __init__(self):
         self.unit = 'smoots'
         self.pub = rospy.Publisher('turtle1/conversion_unit', String, queue_size=10)
