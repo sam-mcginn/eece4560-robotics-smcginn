@@ -11,7 +11,7 @@ class DistanceConverter:
         self.curr_unit = "smoots"
         rospy.Subscriber('turtle1/dist_measured', UnitsLabelled, self.convert)
         self.pub = rospy.Publisher('turtle1/dist_converted', UnitsLabelled, queue_size=10)
-        #rospy.Subscriber('turtle1/conversion_unit', String, self.change_unit)
+        rospy.Subscriber('turtle1/conversion_unit', String, self.change_unit)
     
     def convert(self, position):
         self.dist_msg = UnitsLabelled();
@@ -27,11 +27,12 @@ class DistanceConverter:
             #smoot
             self.dist_msg.units = 'smoots'
             self.dist_msg.value = m_to_smoot * position.value
-        self.pub.publish(dist_msg)
-            
-        
+        self.pub.publish(dist_msg)     
     
-    #def change_unit(self, unit):
+    def change_unit(self, unit):
+        self.curr_unit = unit
+  
+  
     
 if __name__ == '__main__':
     rospy.init_node('dist_converter', anonymous=True)
