@@ -11,6 +11,7 @@
 	<node pkg="homework_two" name="dist_converter" type="dist_converter.py"/>
 	<node pkg="homework_two" name="change_units" type="change_units.py" />
 	<param name="unit" type="str" value="smoots" />
+	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="echo turtle1/dist_converted" />
 </group>
 
 </launch>
