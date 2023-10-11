@@ -27,7 +27,7 @@ class DistanceConverter:
             #smoot
             self.dist_msg.units = 'smoots'
             self.dist_msg.value = m_to_smoot * position.value
-        self.pub.publish(dist_msg)     
+        self.pub.publish(self.dist_msg)     
     
     def change_unit(self, unit):
         self.curr_unit = unit
