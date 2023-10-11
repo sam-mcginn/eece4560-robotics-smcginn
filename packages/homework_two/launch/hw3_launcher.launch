@@ -5,8 +5,7 @@
 <group ns="turtlesim">
 	<node pkg="homework_two" name="listener" type="hw3_node.py"/>
 	<node pkg="rqt_graph" name="rqt_graph" type="rqt_graph" />
-	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="echo dist_traveled" />
-	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="echo dist_traveled"/>
+	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="echo turtle1/dist_traveled" />
 </group>
 
 </launch>
