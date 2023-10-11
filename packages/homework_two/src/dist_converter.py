@@ -14,7 +14,7 @@ class DistanceConverter:
         rospy.Subscriber('turtle1/conversion_unit', String, self.change_unit)
     
     def convert(self, position):
-        self.dist_msg = UnitsLabelled();
+        self.dist_msg = UnitsLabelled()
         m_to_ft = 3.2808
         m_to_smoot = 1.7018
         if self.curr_unit == 'meters':
