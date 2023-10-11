@@ -1,8 +1,13 @@
 <launch>
 
-<include file="$(find homework_two)/launch/hw3_launcher.launch"/>
+<include file="$(find turtlesim_helper)/launch/turtlesim.launch"/>
 
 <group ns="turtlesim">
+	<node pkg="homework_two" name="talker" type="hw_two_pub.py"/>
+	
+	<node pkg="homework_two" name="listener" type="hw3_node.py"/>
+	<node pkg="rqt_graph" name="rqt_graph" type="rqt_graph" />
+	
 	<node pkg="homework_two" name="dist_converter" type="dist_converter.py"/>
 	<node pkg="homework_two" name="change_units" type="change_units.py" />
 	<param name="unit" type="str" value="smoots" />
