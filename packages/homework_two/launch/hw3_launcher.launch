@@ -6,6 +6,7 @@
 	<node pkg="homework_two" name="listener" type="hw3_node.py"/>
 	<node pkg="rqt_graph" name="rqt_graph" type="rqt_graph" />
 	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="echo dist_traveled" />
+	<node pkg="rostopic" name="rostopic" types="rostopic" output="screen" args="echo dist_traveled"/>
 </group>
 
 </launch>
