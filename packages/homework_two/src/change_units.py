@@ -22,7 +22,7 @@ class ChangeUnits:
         if rospy.has_param('unit'):
             rospy.set_param('unit', self.unit)
         else:
-            # FIX - add error log?
+            pass
     
     
 if __name__ == '__main__':

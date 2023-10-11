@@ -16,7 +16,7 @@ class DistanceConverter:
         if rospy.has_param('unit'):
             self.curr_unit = rospy.get_param('unit')
         else:
-            # FIX - add error log ?
+            self.curr_unit = 'smoots'
     
         self.dist_msg = UnitsLabelled()
         m_to_ft = 3.2808
