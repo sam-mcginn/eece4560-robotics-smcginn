@@ -9,7 +9,6 @@ from std_msgs.msg import String
 class ChangeUnits:
     def __init__(self):
         self.unit = 'smoots'
-        self.pub = rospy.Publisher('turtle1/conversion_unit', String, queue_size=10)
     
     def changeUnit(self):
         if self.unit == 'smoots':
@@ -19,7 +18,11 @@ class ChangeUnits:
         else:
             # feet
             self.unit = 'smoots'
-        self.pub.publish(self.unit)
+        
+        if rospy.has_param('unit'):
+            rospy.set_param('unit', self.unit)
+        else:
+            # FIX - add error log?
     
     
 if __name__ == '__main__':

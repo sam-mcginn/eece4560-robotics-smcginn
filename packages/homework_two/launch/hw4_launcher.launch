@@ -5,6 +5,7 @@
 <group ns="turtlesim">
 	<node pkg="homework_two" name="dist_converter" type="dist_converter.py"/>
 	<node pkg="homework_two" name="change_units" type="change_units.py" />
+	<param name="unit" type="str" value="smoots" />
 </group>
 
 </launch>

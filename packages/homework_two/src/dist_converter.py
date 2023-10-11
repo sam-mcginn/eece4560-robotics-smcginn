@@ -9,11 +9,15 @@ from std_msgs.msg import String
 class DistanceConverter:
     def __init__(self):
         self.curr_unit = "smoots"
-        rospy.Subscriber('turtle1/conversion_unit', String, self.change_unit)
         rospy.Subscriber('turtle1/dist_traveled', UnitsLabelled, self.convert)
         self.pub = rospy.Publisher('turtle1/dist_converted', UnitsLabelled, queue_size=10)
     
     def convert(self, position):
+        if rospy.has_param('unit'):
+            self.curr_unit = rospy.get_param('unit')
+        else:
+            # FIX - add error log ?
+    
         self.dist_msg = UnitsLabelled()
         m_to_ft = 3.2808
         m_to_smoot = 1.7018
@@ -28,9 +32,6 @@ class DistanceConverter:
             self.dist_msg.units = 'smoots'
             self.dist_msg.value = m_to_smoot * position.value
         self.pub.publish(self.dist_msg)     
-    
-    def change_unit(self, unit):
-        self.curr_unit = unit
   
   
     
