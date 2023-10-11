@@ -1,0 +1,10 @@
+<launch>
+
+<include file="$(find homework_two)/launch/hw3_launcher.launch"/>
+
+<group ns="turtlesim">
+	<node pkg="homework_two" name="dist_converter" type="dist_converter.py"/>
+	<node pkg="homework_two" name="change_units" type="change_units.py" />
+</group>
+
+</launch>
