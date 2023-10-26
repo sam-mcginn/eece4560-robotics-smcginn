@@ -2,6 +2,6 @@
 
 	<node pkg="coord_transform" name="sensor_transform" type="sensor_coord_transform.py" />
 	
-	<node pkg="rostopic" name="rostopic1" type="rostopic" output="screen" args='echo /sensor_coord" />
+	<node pkg="rostopic" name="rostopic1" type="rostopic" output="screen" args="echo /sensor_coord" />
 
 </launch>
