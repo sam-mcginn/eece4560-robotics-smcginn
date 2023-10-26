@@ -2,5 +2,6 @@
 
 
 	<node pkg="coord_transform" name="sensor_transform" type="sensor_coord_transform.py" />
+	<node pkg="rqt_console" name="rqt_console" type="rqt_console" />
 
 </launch>
