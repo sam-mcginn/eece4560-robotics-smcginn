@@ -27,14 +27,14 @@ class SensorTransform:
         self.curr_wcoord = self.wts_xform*self.curr_scoord
         
         # update msgs
-        self.rc_msg.x = curr_rcoord[0,0]
-        self.rc_msg.y = curr_rcoord[1,0]
-        self.wc_msg.x = curr_wcoord[0,0]
-        self.wc_msg.y = curr_wcoord[1,0]
+        self.rc_msg.x = self.curr_rcoord[0,0]
+        self.rc_msg.y = self.curr_rcoord[1,0]
+        self.wc_msg.x = self.curr_wcoord[0,0]
+        self.wc_msg.y = self.curr_wcoord[1,0]
         
         # publish
-        rospy.loginfo("Robot transform: "+curr_rcoord[0,0]+curr_rcoord[1,0]);
-        rospy.loginfo("World transform: "+curr_wcoord[0,0]+curr_wcoord[1,0]);
+        rospy.loginfo("Robot transform: "+self.curr_rcoord[0,0]+self.curr_rcoord[1,0]);
+        rospy.loginfo("World transform: "+self.curr_wcoord[0,0]+self.curr_wcoord[1,0]);
         self.pub_rc.publish(self.rc_msg)
         self.pub_wc.publish(self.wc_msg)
         
