@@ -33,6 +33,8 @@ class SensorTransform:
         self.wc_msg.y = curr_wcoord[1,0]
         
         # publish
+        rospy.loginfo("Robot transform: "+curr_rcoord[0,0]+curr_rcoord[1,0]);
+        rospy.loginfo("World transform: "+curr_wcoord[0,0]+curr_wcoord[1,0]);
         self.pub_rc.publish(self.rc_msg)
         self.pub_wc.publish(self.wc_msg)
         
