@@ -4,9 +4,9 @@
 	<node pkg="coord_transform" name="sensor_transform" type="sensor_coord_transform.py" />
 	<node pkg="rqt_console" name="rqt_console" type="rqt_console" />
 
-	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: 7.0, y: 2.0}' " />
-	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: 16.0, y: -1.0}' " />
-	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: -7.0, y: 6.0}' " />
-	<node pkg="rostopic" name="rostopic" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: -8.0, y: -13.0}' " />
+	<node pkg="rostopic" name="coord_a" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: 7.0, y: 2.0}' " />
+	<node pkg="rostopic" name="coord_b" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: 16.0, y: -1.0}' " />
+	<node pkg="rostopic" name="coord_c" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: -7.0, y: 6.0}' " />
+	<node pkg="rostopic" name="coord_d" type="rostopic" output="screen" args="pub -1 /sensor_coord duckietown_msgs/Vector2D '{ x: -8.0, y: -13.0}' " />
 	
 </launch>
