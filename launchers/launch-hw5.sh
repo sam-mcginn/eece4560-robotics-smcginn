@@ -1,7 +1,7 @@
 #!/bin/bash
 
-HW_PACKAGE="homework5"
-HW_LAUNCH="hw5.launch"
+HW_PACKAGE="coord_launch"
+HW_LAUNCH="hw5_launcher.launch"
 
 source /environment.sh
 
