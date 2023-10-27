@@ -9,7 +9,7 @@ angle_wtr = (5.0*math.pi)/6.0
 angle_rts = math.pi
 
 class SensorTransform:
-    def __init__(self):s
+    def __init__(self):
         rospy.Subscriber('/sensor_coord', Vector2D, self.transform)
         self.pub_rc = rospy.Publisher('/robot_coord', Vector2D, queue_size=10)
         self.pub_wc = rospy.Publisher('/world_coord', Vector2D, queue_size=10)
