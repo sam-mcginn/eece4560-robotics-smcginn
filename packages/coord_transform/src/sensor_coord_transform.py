@@ -19,8 +19,8 @@ class SensorTransform:
         self.init_transforms()
         
     def init_transforms(self):
-        self.wtr_xform = numpy.matrix([[math.cos(angle_wtr), -1.0*math.sin(angle_wtr), 6.0], [math.sin(angle(wtr), math.cos(angle_wtr), 2.0], [0.0, 0.0, 1.0]])
-        self.rts_xform = numpy.matrix([[math.cos(angle_rts), -1.0*math.sin(angle_rts), -1.0], [math.sin(angle(rts), math.cos(angle_rts), 0.0], [0.0, 0.0, 1.0]])
+        self.wtr_xform = numpy.matrix([[math.cos(angle_wtr), -1.0*math.sin(angle_wtr), 6.0], [math.sin(angle_wtr), math.cos(angle_wtr), 2.0], [0.0, 0.0, 1.0]])
+        self.rts_xform = numpy.matrix([[math.cos(angle_rts), -1.0*math.sin(angle_rts), -1.0], [math.sin(angle_rts), math.cos(angle_rts), 0.0], [0.0, 0.0, 1.0]])
         self.wts_xform = wtr_xform*rts_xform
     
         
