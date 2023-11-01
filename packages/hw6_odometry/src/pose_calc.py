@@ -36,5 +36,5 @@ class PoseCalc:
     
 if __name__ == '__main__':
     rospy.init_node('pose_update', anonymous=True)
-    t = PoseCalc()
+    PoseCalc()
     rospy.spin()
