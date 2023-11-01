@@ -1,16 +1,16 @@
 #!usr/bin/env python3
 import rospy
-import roscpp
+import math
+import time
 from odometry_hw.msg import Pose2D
 from odometry_hw.msg import DistWheel
-import math
 # Pose2D = float64 x,y,theta
 # DistWheel = float64 dist_wheel_left, dist_wheel_right
 
 class PoseCalc:
     def __init__(self):
-        self.pub=rospy.Publisher('/pose', Pose2D, queue_size=10)
-        rospy.Subscriber('/dist_wheel', DistWheel, self.callback)
+        self.pub=rospy.Publisher('pose', Pose2D, queue_size=10)
+        rospy.Subscriber('dist_wheel', DistWheel, self.callback)
         self.curr_x = 0.0
         self.curr_y = 0.0
         self.curr_theta = 0.0
