@@ -34,6 +34,6 @@ class PoseCalc:
         self.pub.publish(self.pose_msg)
     
     
-if __name__ == "__main__":
+if __name__ == '__main__':
     rospy.init_node("pose_calc", anonymous=True)
     t = PoseCalc()

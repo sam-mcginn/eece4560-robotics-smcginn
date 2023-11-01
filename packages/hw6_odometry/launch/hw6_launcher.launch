@@ -1,7 +1,7 @@
 <launch>
 
 <include file="$(find odometry_hw)/launch/odom_hw.launch" />
-<node pkg="hw6_odometry" name="pose_calc" type="pose_calc.py" />
+<node pkg="hw6_odometry" name="pose_update" type="pose_calc.py" />
 <param name="odom_ready" type="str" value="ready" />
 
 </launch>
