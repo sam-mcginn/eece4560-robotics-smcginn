@@ -1,8 +1,8 @@
 #!usr/bin/env python3
 import rospy
 import roscpp
-from odometry_hw import Pose2D
-from odometry_hw import DistWheel
+from odometry_hw.msg import Pose2D
+from odometry_hw.msg import DistWheel
 import math
 # Pose2D = float64 x,y,theta
 # DistWheel = float64 dist_wheel_left, dist_wheel_right
