@@ -14,7 +14,7 @@ class PoseCalc:
         self.curr_x = 0.0
         self.curr_y = 0.0
         self.curr_theta = 0.0
-        d_wheel = 0.1    # wheel diameter
+        self.d_wheel = 0.1    # wheel diameter
         self.pose_msg = Pose2D()
     
     def callback(self, msg):
