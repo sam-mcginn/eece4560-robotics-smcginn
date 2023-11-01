@@ -1,7 +1,7 @@
 #!/bin/bash
 
-HW_PACKAGE="homework6"
-HW_LAUNCH="hw6.launch"
+HW_PACKAGE="hw6_odometry"
+HW_LAUNCH="hw6_launcher.launch"
 
 source /environment.sh
 
