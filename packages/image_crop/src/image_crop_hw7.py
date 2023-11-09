@@ -22,10 +22,11 @@ class Image_Crop:
     def crop_image(self, image):
         # convert to a ROS image using the bridge
         cv_img = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        height = cv_img.shape(0)
+        height = cv_img.shape[0]
+        width = cv_img.shape[1]
         
         # 1st image - crop top 50%
-        cv_img1 = cv_img[((height/2):(height),:)
+        cv_img1 = cv_img[((height/2):(height),0:width)
         
         # 2nd image - filter for white pixels
         
