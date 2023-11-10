@@ -20,9 +20,9 @@ class Image_Crop:
         self.bridge = CvBridge()
         
         # Filter ranges
-        self.lower_yt = numpy.array([0, 0, 245])
-        self.upper_yt = numpy.array([255, 10, 255])
-        self.lower_ylw = numpy.array([20, 150, 0])
+        self.lower_yt = numpy.array([0, 0, 230])
+        self.upper_yt = numpy.array([255, 50, 255])
+        self.lower_ylw = numpy.array([20, 140, 0])
         self.upper_ylw = numpy.array([32, 255, 255])
 	
     def crop_image(self, image):
