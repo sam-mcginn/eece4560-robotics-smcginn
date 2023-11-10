@@ -26,7 +26,7 @@ class Image_Crop:
         width = cv_img.shape[1]
         
         # 1st image - crop top 50%
-        crop_img = cv_img[(height/2):(height),0:width]
+        crop_img = cv_img[int(height/2):(height),0:width]
         
         # Convert colors from RGB --> HSV
         img_hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
