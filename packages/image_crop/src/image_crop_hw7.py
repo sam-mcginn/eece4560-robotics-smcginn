@@ -18,33 +18,35 @@ class Image_Crop:
         
         # instantiate converter object
         self.bridge = CvBridge()
+        
+        # Filter ranges
+        self.lower_yt = numpy.array([0, 0, 0])
+        self.upper_yt = numpy.array([0, 10, 255])
+        self.lower_ylw = numpy.array([22, 100, 20])
+        self.upper_ylw = numpy.array([37, 255, 255])
 	
     def crop_image(self, image):
         # convert to a ROS image using the bridge
-        cv_img = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        height = cv_img.shape[0]
-        width = cv_img.shape[1]
+        self.cv_img = self.bridge.imgmsg_to_cv2(image, "bgr8")
+        self.height = self.cv_img.shape[0]
+        self.width = self.cv_img.shape[1]
         
         # 1st image - crop top 50%
-        crop_img = cv_img[int(height/2):(height),0:width]
+        self.crop_img = self.cv_img[int(self.height/2):(self.height),0:(self.width)]
         
         # Convert colors from RGB --> HSV
-        img_hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
+        self.img_hsv = cv2.cvtColor(self.crop_img, cv2.COLOR_BGR2HSV)
         
         # 2nd image - filter for white pixels
-        lower_yt = numpy.array([0, 0, 0])
-        upper_yt = numpy.array([0, 10, 255])
-        img_yt = cv2.inRange(img_hsv, lower_yt, upper_yt)
+        self.img_yt = cv2.inRange(self.img_hsv, self.lower_yt, self.upper_yt)
         
         # 3rd image - filter for yellow pixels
-        lower_ylw = numpy.array([22, 100, 20])
-        upper_ylw = numpy.array([37, 255, 255])
-        img_ylw = cv2.inRange(img_hsv, lower_ylw, upper_ylw)
+        self.img_ylw = cv2.inRange(self.img_hsv, self.lower_ylw, self.upper_ylw)
         
         # convert new image to ROS to send
-        crop_msg = self.bridge.cv2_to_imgmsg(crop_img, "passthrough")
-        yt_msg = self.bridge.cv2_to_imgmsg(img_yt, "passthrough")
-        ylw_msg = self.bridge.cv2_to_imgmsg(img_ylw, "passthrough")
+        self.crop_msg = self.bridge.cv2_to_imgmsg(self.crop_img, "passthrough")
+        self.yt_msg = self.bridge.cv2_to_imgmsg(self.img_yt, "passthrough")
+        self.ylw_msg = self.bridge.cv2_to_imgmsg(self.img_ylw, "passthrough")
         
         # publish cropped images
         self.pub1.publish(self.crop_msg)
