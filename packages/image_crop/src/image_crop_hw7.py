@@ -20,10 +20,10 @@ class Image_Crop:
         self.bridge = CvBridge()
         
         # Filter ranges
-        self.lower_yt = numpy.array([0, 0, 0])
-        self.upper_yt = numpy.array([25, 255, 255])
-        self.lower_ylw = numpy.array([22, 100, 20])
-        self.upper_ylw = numpy.array([37, 255, 255])
+        self.lower_yt = numpy.array([0, 0, 255])
+        self.upper_yt = numpy.array([255, 10, 255])
+        self.lower_ylw = numpy.array([20, 120, 0])
+        self.upper_ylw = numpy.array([32, 255, 255])
 	
     def crop_image(self, image):
         # convert to a ROS image using the bridge
