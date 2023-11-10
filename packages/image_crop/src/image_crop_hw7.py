@@ -26,18 +26,30 @@ class Image_Crop:
         width = cv_img.shape[1]
         
         # 1st image - crop top 50%
-        cv_img1 = cv_img[(height/2):(height),0:width]
+        crop_img = cv_img[(height/2):(height),0:width]
+        
+        # Convert colors from RGB --> HSV
+        img_hsv = cv2.cvtColor(crop_img, cv2.COLOR_BGR2HSV)
         
         # 2nd image - filter for white pixels
+        lower_yt = numpy.array([0, 0, 0])
+        upper_yt = numpy.array([0, 10, 255])
+        img_yt = cv2.inRange(img_hsv, lower_yt, upper_yt)
         
-        # 3rd image - filter for 
+        # 3rd image - filter for yellow pixels
+        lower_ylw = numpy.array([22, 100, 20])
+        upper_ylw = numpy.array([37, 255, 255])
+        img_ylw = cv2.inRange(img_hsv, lower_ylw, upper_ylw)
         
         # convert new image to ROS to send
+        crop_msg = self.bridge.cv2_to_imgmsg(crop_img, "mono8")
+        yt_msg = self.bridge.cv2_to_imgmsg(img_yt, "mono8")
+        ylw_msg = self.bridge.cv2_to_imgmsg(img_ylw, "mono8")
         
         # publish cropped images
         self.crop_msg = Image()
-        self.white_msg = Image()
-        seelf.yellow_msg = Image()
+        self.yt_msg = Image()
+        self.ylw_msg = Image()
 	
 	
 
