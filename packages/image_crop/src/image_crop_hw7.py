@@ -11,9 +11,9 @@ from cv_bridge import CvBridge
 class Image_Crop:
     def __init__(self):
         # set up publishers and subscribers
-        self.pub = rospy.Publisher('/image_cropped', Image, queue_size=10)
-        self.pub = rospy.Publisher('/image_white', Image, queue_size=10)
-        self.pub = rospy.Publisher('/image_yellow', Image, queue_size=10)
+        self.pub1 = rospy.Publisher('/image_cropped', Image, queue_size=10)
+        self.pub2 = rospy.Publisher('/image_white', Image, queue_size=10)
+        self.pub3 = rospy.Publisher('/image_yellow', Image, queue_size=10)
         rospy.Subscriber('/image', Image, self.crop_image)
         
         # instantiate converter object
@@ -47,10 +47,9 @@ class Image_Crop:
         ylw_msg = self.bridge.cv2_to_imgmsg(img_ylw, "mono8")
         
         # publish cropped images
-        self.crop_msg = Image()
-        self.yt_msg = Image()
-        self.ylw_msg = Image()
-	
+        self.pub1.publish(self.crop_msg)
+        self.pub2.publish(self.yt_msg)
+        self.pub3.publish(self.ylw_msg)
 	
 
 if __name__ == '__main__':
