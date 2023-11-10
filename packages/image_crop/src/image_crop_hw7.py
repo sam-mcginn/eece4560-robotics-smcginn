@@ -21,7 +21,7 @@ class Image_Crop:
         
         # Filter ranges
         self.lower_yt = numpy.array([0, 0, 0])
-        self.upper_yt = numpy.array([0, 10, 255])
+        self.upper_yt = numpy.array([0, 100, 255])
         self.lower_ylw = numpy.array([22, 100, 20])
         self.upper_ylw = numpy.array([37, 255, 255])
 	
