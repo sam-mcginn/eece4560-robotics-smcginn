@@ -1,7 +1,7 @@
 #!/bin/bash
 
-HW_PACKAGE="homework7"
-HW_LAUNCH="hw7.launch"
+HW_PACKAGE="image_crop"
+HW_LAUNCH="hw7_launcher.launch"
 
 source /environment.sh
 
