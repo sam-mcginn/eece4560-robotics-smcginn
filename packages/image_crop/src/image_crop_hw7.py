@@ -42,9 +42,9 @@ class Image_Crop:
         img_ylw = cv2.inRange(img_hsv, lower_ylw, upper_ylw)
         
         # convert new image to ROS to send
-        crop_msg = self.bridge.cv2_to_imgmsg(crop_img, "mono8")
-        yt_msg = self.bridge.cv2_to_imgmsg(img_yt, "mono8")
-        ylw_msg = self.bridge.cv2_to_imgmsg(img_ylw, "mono8")
+        crop_msg = self.bridge.cv2_to_imgmsg(crop_img, desired_encoding='passthrough')
+        yt_msg = self.bridge.cv2_to_imgmsg(img_yt, desired_encoding='passthrough')
+        ylw_msg = self.bridge.cv2_to_imgmsg(img_ylw, desired_encoding='passthrough')
         
         # publish cropped images
         self.pub1.publish(self.crop_msg)
