@@ -26,7 +26,7 @@ class Image_Crop:
         width = cv_img.shape[1]
         
         # 1st image - crop top 50%
-        cv_img1 = cv_img[((height/2):(height),0:width)
+        cv_img1 = cv_img[(height/2):(height),0:width]
         
         # 2nd image - filter for white pixels
         
@@ -35,6 +35,9 @@ class Image_Crop:
         # convert new image to ROS to send
         
         # publish cropped images
+        self.crop_msg = Image()
+        self.white_msg = Image()
+        seelf.yellow_msg = Image()
 	
 	
 
