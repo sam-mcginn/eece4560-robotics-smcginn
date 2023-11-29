@@ -3,7 +3,6 @@ import rospy
 import numpy
 import math
 import cv2
-import message_filters
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from message_filters import ApproximateTimeSynchronizer, Subscriber
@@ -15,19 +14,19 @@ from message_filters import ApproximateTimeSynchronizer, Subscriber
 class Edge_Detect:
     def __init__(self):
         # Cropped image --> canny edge detection
-        message_filters.Subscriber('/image_cropped', Image)
+        self.sub1 = Subscriber('/image_cropped', Image)
         self.pub1 = rospy.Publisher('/image_edges', Image, queue_size=10)
         
         # White filtered image --> Hough transform
-        message_filters.Subscriber('/image_white', Image)
+        self.sub2 = Subscriber('/image_white', Image)
         self.pub2 = rospy.Publisher('/image_lines_white', Image, queue_size=10)
         
         # Yellow filtered image --> Hough transform
-        message_filters.Subscriber('/image_yellow', Image)
+        self.sub3 = Subscriber('/image_yellow', Image)
         self.pub3 = rospy.Publisher('/image_lines_yellow', Image, queue_size=10)
         
         # Synchronize all three messages to one callback
-        ats = ApproximateTimeSynchronizer([self.pub1, self.pub2, self.pub3], queue_size=5, slop=0.1)
+        ats = ApproximateTimeSynchronizer([self.sub1, self.sub2, self.sub3], queue_size=5, slop=0.1)
         ats.registerCallback(self.got_images)
         
     	# Converter object to convert ROS image <--> OpenCV image
