@@ -64,7 +64,7 @@ class Edge_Detect:
                 for x1, y1, x2, y2 in line:
                     self.ylw_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
         else:
-            self.ylw_lines - self.canny_cropped
+            self.ylw_lines = self.canny_cropped
                     
          
         # Publish as ROS images
