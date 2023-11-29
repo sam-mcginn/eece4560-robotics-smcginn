@@ -3,6 +3,7 @@ import rospy
 import numpy
 import math
 import cv2
+import message_filters
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 from message_filters import ApproximateTimeSynchronizer, Subscriber
