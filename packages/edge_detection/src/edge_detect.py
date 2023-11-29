@@ -39,7 +39,7 @@ class Edge_Detect:
         self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "passthrough")
          
         # Canny edge detection on cropped image
-        self.canny_cropped = cv2.Canny(self.cv_img1, 50, 150)
+        self.canny_cropped = cv2.Canny(self.cv_img1, 85, 255)
          
         # AND canny cropped image with white, yellow images
         self.yt_edges = cv2.bitwise_and(self.cv_img2, self.canny_cropped)
