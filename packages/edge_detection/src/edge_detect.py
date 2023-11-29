@@ -48,7 +48,7 @@ class Edge_Detect:
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, minLineLength, maxLineGap)
         self.yt_hough = cv2.HoughLinesP(self.yt_edges, 1, numpy.pi/180, 25, 50, 25)
-        self.ylw_hough = cv2.HoughLines(self.ylw_edges, 1, numpy.pi/180, 25, 50, 25)
+        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, 1, numpy.pi/180, 25, 50, 25)
          
         # Add lines from Hough transform to original cropped image
         # cv2.line(img, start_pt, end_pt, BGR_color, line_thicknes)
