@@ -30,13 +30,13 @@ class Edge_Detect:
         ats.registerCallback(self.got_images)
         
     	# Converter object to convert ROS image <--> OpenCV image
-        self.bridge = CvBridge()
+        self.bridge2 = CvBridge()
 
     def got_images(self, img1, img2, img3):
         # Convert ROS images --> OpenCV images
-        self.cv_img1 = self.bridge.imgmsg_to_cv2(img1, "bgr8")
-        self.cv_img2 = self.bridge.imgmsg_to_cv2(img2, "bgr8")
-        self.cv_img3 = self.bridge.imgmsg_to_cv2(img3, "bgr8")
+        self.cv_img1 = self.bridge2.imgmsg_to_cv2(img1, "bgr8")
+        self.cv_img2 = self.bridge2.imgmsg_to_cv2(img2, "bgr8")
+        self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "bgr8")
          
         # Canny edge detection on cropped image
         self.canny_cropped = cv2.Canny(self.cv_img1, 50, 150)
@@ -48,6 +48,7 @@ class Edge_Detect:
         # Add lines from Hough transform to original cropped image
          
         # Publish as ROS images
+        self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
         self.pub1.publish(self.canny_img)
  
     '''
