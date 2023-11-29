@@ -47,18 +47,25 @@ class Edge_Detect:
          
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, minLineLength, maxLineGap)
-        self.yt_hough = cv2.HoughLinesP(self.yt_edges, 1, numpy.pi/180, 50, 100, 10)
-        self.ylw_hough = cv2.HoughLines(self.ylw_edges, 1, numpy.pi/180, 50, 100, 10)
+        self.yt_hough = cv2.HoughLinesP(self.yt_edges, 1, numpy.pi/180, 25, 50, 25)
+        self.ylw_hough = cv2.HoughLines(self.ylw_edges, 1, numpy.pi/180, 25, 50, 25)
          
         # Add lines from Hough transform to original cropped image
         # cv2.line(img, start_pt, end_pt, BGR_color, line_thicknes)
-        for line in self.yt_hough:
-            for x1, y1, x2, y2 in line:
-                self.yt_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        if self.yt_hough is not None:
+            for line in self.yt_hough:
+                for x1, y1, x2, y2 in line:
+                    self.yt_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        else:
+            self.yt_lines = self.canny_cropped
                 
-        for line in self.ylw_hough:
-            for x1, y1, x2, y2 in line:
-                self.ylw_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        if self.ylw_hough is not None:
+            for line in self.ylw_hough:
+                for x1, y1, x2, y2 in line:
+                    self.ylw_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        else:
+            self.ylw_lines - self.canny_cropped
+                    
          
         # Publish as ROS images
         self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
