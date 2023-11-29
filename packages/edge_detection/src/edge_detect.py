@@ -26,8 +26,8 @@ class Edge_Detect:
         self.pub3 = rospy.Publisher('/image_lines_yellow', Image, queue_size=10)
         
         # Synchronize all three messages to one callback
-        ats = ApproximateTimeSynchronizer([pub1, pub2, pub3], queue_size=5, slop=0.1)
-        ats.registerCallback(got_images)
+        ats = ApproximateTimeSynchronizer([self.pub1, self.pub2, self.pub3], queue_size=5, slop=0.1)
+        ats.registerCallback(self.got_images)
         
     	# Converter object to convert ROS image <--> OpenCV image
         self.bridge = CvBridge()
