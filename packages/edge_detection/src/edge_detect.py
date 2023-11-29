@@ -26,8 +26,8 @@ class Edge_Detect:
         self.pub3 = rospy.Publisher('/image_lines_yellow', Image, queue_size=10)
         
         # Synchronize all three messages to one callback
-        ats = ApproximateTimeSynchronizer([self.sub1, self.sub2, self.sub3], queue_size=5, slop=0.1)
-        ats.registerCallback(self.got_images)
+        self.ats = ApproximateTimeSynchronizer([self.sub1, self.sub2, self.sub3], queue_size=5, slop=0.1)
+        self.ats.registerCallback(self.got_images)
         
     	# Converter object to convert ROS image <--> OpenCV image
         self.bridge2 = CvBridge()
@@ -50,33 +50,6 @@ class Edge_Detect:
         # Publish as ROS images
         self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
         self.pub1.publish(self.canny_img)
- 
-    '''
-    def do_canny(self, image):
-        # Convert ROS image --> OpenCV image:
-        self.cv_img1 = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        # Canny edge detection:
-        self.canny_cv = cv2.Canny(self.cv_img1, 50, 150)
-        # Convert OpenCV image --> ROS image:
-        self.canny_img = self.bridge.cv2_to_imgmsg(self.canny_cv, "passthrough")
-        # Publish ROS image:
-        #self.pub1.publish(self.canny_img)
-        
-    def hough_white(self, image):
-        # Convert ROS image --> OpenCV image:
-        self.cv_img2 = self.bridge.imgmsg_to_cv2(image, "bgr8")
-        # Hough transform:
-        
-        # Convert OpenCV image --> ROS image
-        # Publish ROS image:
-    
-    def hough_yellow(self, image):
-        # Convert ROS image --> OpenCV image:
-        # Hough transform:
-        # Convert OpenCV image --> ROS image
-        # Publish ROS image:
-        pass
-    '''
     
     
 if __name__ == '__main__':
