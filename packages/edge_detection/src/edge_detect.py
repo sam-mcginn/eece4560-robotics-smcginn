@@ -14,15 +14,15 @@ from message_filters import ApproximateTimeSynchronizer, Subscriber
 class Edge_Detect:
     def __init__(self):
         # Cropped image --> canny edge detection
-        rospy.Subscriber('/image_cropped', Image)
+        message_filters.Subscriber('/image_cropped', Image)
         self.pub1 = rospy.Publisher('/image_edges', Image, queue_size=10)
         
         # White filtered image --> Hough transform
-        rospy.Subscriber('/image_white', Image)
+        message_filters.Subscriber('/image_white', Image)
         self.pub2 = rospy.Publisher('/image_lines_white', Image, queue_size=10)
         
         # Yellow filtered image --> Hough transform
-        rospy.Subscriber('/image_yellow', Image)
+        message_filters.Subscriber('/image_yellow', Image)
         self.pub3 = rospy.Publisher('/image_lines_yellow', Image, queue_size=10)
         
         # Synchronize all three messages to one callback
