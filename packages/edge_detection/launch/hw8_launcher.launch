@@ -6,5 +6,6 @@
 
 <node pkg="image_crop" type="image_crop_hw7.py" name="image_cropper" />
 <node pkg="image_processing_hw" type="image_pub_all.py" name="image_pub_all" />
+<node pkg="edge_detection" type="edge_detect.py" name="edge_detect" />
 
 </launch>
