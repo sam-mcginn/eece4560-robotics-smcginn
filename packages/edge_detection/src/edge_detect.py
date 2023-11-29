@@ -2,9 +2,9 @@
 import rospy
 import numpy
 import math
-#import cv2
+import cv2
 from sensor_msgs.msg import Image
-#from cv_bridge import CvBridge
+from cv_bridge import CvBridge
 from message_filters  import ApproximateTimeSynchonizer, Subscriber
 
 # Image.msg = Header header, uint32 height,width,step(row length in bytes)
@@ -30,16 +30,16 @@ class Edge_Detect:
         ats.registerCallback(got_images)
         
     	# Converter object to convert ROS image <--> OpenCV image
-        #self.bridge = CvBridge()
+        self.bridge = CvBridge()
  
      def got_images(self, img1, img2, img3):
          # Convert ROS images --> OpenCV images
-         #self.cv_img1 = self.bridge.imgmsg_to_cv2(img1, "bgr8")
-         #self.cv_img2 = self.bridge.imgmsg_to_cv2(img2, "bgr8")
-         #self.cv_img3 = self.bridge.imgmsg_to_cv2(img3, "bgr8")
+         self.cv_img1 = self.bridge.imgmsg_to_cv2(img1, "bgr8")
+         self.cv_img2 = self.bridge.imgmsg_to_cv2(img2, "bgr8")
+         self.cv_img3 = self.bridge.imgmsg_to_cv2(img3, "bgr8")
          
          # Canny edge detection on cropped image
-         #self.canny_cropped = cv2.Canny(self.cv_img1, 50, 150)
+         self.canny_cropped = cv2.Canny(self.cv_img1, 50, 150)
          
          # AND canny cropped image with white, yellow images
          
@@ -48,8 +48,7 @@ class Edge_Detect:
          # Add lines from Hough transform to original cropped image
          
          # Publish as ROS images
-         #self.pub1.publish(self.canny_img)
-         pass
+         self.pub1.publish(self.canny_img)
  
     '''
     def do_canny(self, image):
