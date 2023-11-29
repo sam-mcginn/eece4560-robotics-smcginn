@@ -34,9 +34,9 @@ class Edge_Detect:
 
     def got_images(self, img1, img2, img3):
         # Convert ROS images --> OpenCV images
-        self.cv_img1 = self.bridge2.imgmsg_to_cv2(img1, "bgr8")
-        self.cv_img2 = self.bridge2.imgmsg_to_cv2(img2, "bgr8")
-        self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "bgr8")
+        self.cv_img1 = self.bridge2.imgmsg_to_cv2(img1, "passthrough")
+        self.cv_img2 = self.bridge2.imgmsg_to_cv2(img2, "passthrough")
+        self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "passthrough")
          
         # Canny edge detection on cropped image
         self.canny_cropped = cv2.Canny(self.cv_img1, 50, 150)
