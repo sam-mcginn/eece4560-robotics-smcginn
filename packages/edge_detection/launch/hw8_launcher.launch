@@ -1,0 +1,10 @@
+<launch>
+
+<node pkg="rqt_image_view" type="rqt_image_view" name="image_view_canny" args="/image_edges" />
+<node pkg="rqt_image_view" type="rqt_image_view" name="image_view_white_lines" args="/image_lines_white" />
+<node pkg="rqt_image_view" type="rqt_image_view" name="image_view_yellow_lines" args="/image_lines_yellow" />
+
+<node pkg="image_crop" type="image_crop_hw7.py" name="image_cropper" />
+<node pkg="image_processing_hw" type="image_pub_all.py" name="image_pub_all" />
+
+</launch>
