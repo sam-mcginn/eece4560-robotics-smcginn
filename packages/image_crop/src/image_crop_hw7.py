@@ -22,7 +22,7 @@ class Image_Crop:
         # Filter ranges
         self.lower_yt = numpy.array([0, 0, 230])
         self.upper_yt = numpy.array([255, 50, 255])
-        self.lower_ylw = numpy.array([20, 140, 0])
+        self.lower_ylw = numpy.array([22, 150, 0])
         self.upper_ylw = numpy.array([32, 255, 255])
 	
     def crop_image(self, image):
@@ -42,9 +42,11 @@ class Image_Crop:
         
         # 3rd image - filter for yellow pixels
         self.img_ylw = cv2.inRange(self.img_hsv, self.lower_ylw, self.upper_ylw)
+        self.kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2,2) )
+        self.img_ylw = cv2.dilate(self.img_ylw, self.kernel)
         
         # convert new image to ROS to send
-        self.crop_msg = self.bridge.cv2_to_imgmsg(self.crop_img, "passthrough")
+        self.crop_msg = self.bridge.cv2_to_imgmsg(self.img_hsv, "passthrough")
         self.yt_msg = self.bridge.cv2_to_imgmsg(self.img_yt, "passthrough")
         self.ylw_msg = self.bridge.cv2_to_imgmsg(self.img_ylw, "passthrough")
         
