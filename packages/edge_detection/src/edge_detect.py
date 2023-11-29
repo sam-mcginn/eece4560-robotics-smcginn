@@ -5,7 +5,7 @@ import math
 import cv2
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
-from message_filters  import ApproximateTimeSynchonizer, Subscriber
+from message_filters import ApproximateTimeSynchronizer, Subscriber
 
 # Image.msg = Header header, uint32 height,width,step(row length in bytes)
 # string encoding, uint8 is_bigendian, uint8[] data
