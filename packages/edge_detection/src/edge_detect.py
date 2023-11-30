@@ -59,19 +59,13 @@ class Edge_Detect:
         # cv2.line(img, start_pt, end_pt, BGR_color, line_thicknes)
 
         if self.yt_hough is not None:
-            for line in self.yt_hough:
-                rospy.loginfo("Found line: "+str(line))
-                for x1, y1, x2, y2 in line:
-                    self.yt_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
+            self.yt_lines = self.output_lines(self.yt_edges, self.yt_hough)
         else:
             # If no lines found in Hough transform - show img that it scanned
             self.yt_lines = self.yt_edges
                 
         if self.ylw_hough is not None:
-            for line in self.ylw_hough:
-                rospy.loginfo("Found line: "+str(line))
-                for x1, y1, x2, y2 in line:
-                    self.ylw_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
+            self.ylw_lines = self.output_lines(self.ylw_edges, self.ylw_hough)
         else:
             # If no lines found in Hough transform - show img that it scanned
             self.ylw_lines = self.ylw_edges
@@ -127,6 +121,18 @@ class Edge_Detect:
         self.pub1.publish(self.canny_img)
         self.pub2.publish(self.yt_ln_img)
         self.pub3.publish(self.ylw_ln_img)
+        
+        
+    def output_lines(self, original_image, lines):
+        # Takes in an image and array of line vectors, returns the image with the lines drawn on
+        output = numpy.copy(original_image)
+        if lines is not None:
+            for i in range(len(lines)):
+                l = lines[i][0]
+                cv2.line(output, (l[0], l[1]), (l[2], l[3]), (255, 0, 0), 2, cv2.LINE_AA)
+                cv2.circle(output, (l[0], l[1]), 2, (0, 255, 0))
+                cv2.circle(output, (l[2], l[3]), 2, (0, 0, 255))
+        return output
     
     
 if __name__ == '__main__':
