@@ -52,26 +52,67 @@ class Edge_Detect:
          
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, minLineLength, maxLineGap)
-        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50
-        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50)
+        #self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50
+        #self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50)
+        
+        self.yt_hough = cv2.HoughLines(self.yt_edges, 1, numpy.pi/180, 10)
+        self.ylw_hough = cv2.HoughLines(self.ylw_edges, 1, numpy.pi/180, 10)
          
         # Add lines from Hough transform to original cropped image
         # cv2.line(img, start_pt, end_pt, BGR_color, line_thicknes)
+        '''
         if self.yt_hough is not None:
             for line in self.yt_hough:
-                rospy.loginfo("Found line: "+str(line));
+                rospy.loginfo("Found line: "+str(line))
                 for x1, y1, x2, y2 in line:
                     self.yt_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
         else:
+            # If no lines found in Hough transform - show img that it scanned
             self.yt_lines = self.yt_edges
                 
         if self.ylw_hough is not None:
             for line in self.ylw_hough:
-                rospy.loginfo("Found line: "+str(line));
+                rospy.loginfo("Found line: "+str(line))
                 for x1, y1, x2, y2 in line:
                     self.ylw_lines = cv2.line(self.cv_img1, (x1, y1), (x2, y2), (0, 0, 255), 2)
         else:
+            # If no lines found in Hough transform - show img that it scanned
             self.ylw_lines = self.ylw_edges
+        '''
+        if self.yt_hough is not None:
+            self.yt_lines = self.cv_img1
+            for line in self.yt_hough:
+                rospy.loginfo("Found line: "+ str(line))
+                for rho, theta in line:
+                    a = numpy.cos(theta)
+                    b = numpy.sin(theta)
+                    x0 = a*rho
+                    y0 = b*rho
+                    x1 = int(x0 + 1000*(-b))
+                    y1 = int(y0 + 1000*(a))
+                    x2 = int(x0 - 1000*(-b))
+                    y2 = int(x0 - 1000*(a))
+                    self.yt_lines = cv2.line(self.yt_lines, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        else:
+            self.yt_lines = self.yt_edges
+        
+        if self.ylw_hough is not None:
+            self.ylw_lines = self.cv_img1
+            for line in self.ylw_hough:
+                rospy.loginfo("Found line: "+ str(line))
+                for rho, theta in line:
+                    a = numpy.cos(theta)
+                    b = numpy.sin(theta)
+                    x0 = a*rho
+                    y0 = b*rho
+                    x1 = int(x0 + 1000*(-b))
+                    y1 = int(y0 + 1000*(a))
+                    x2 = int(x0 - 1000*(-b))
+                    y2 = int(x0 - 1000*(a))
+                    self.ylw_lines = cv2.line(self.ylw_lines, (x1, y1), (x2, y2), (0, 0, 255), 2)
+        else:
+            self.ylw_lines = self.ylw_edges
+        
                     
          
         # Publish as ROS images
