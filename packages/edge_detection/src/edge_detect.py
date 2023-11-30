@@ -26,7 +26,7 @@ class Edge_Detect:
         self.pub3 = rospy.Publisher('/image_lines_yellow', Image, queue_size=10)
         
         # Synchronize all three messages to one callback
-        self.ats = ApproximateTimeSynchronizer([self.sub1, self.sub2, self.sub3], queue_size=5, slop=0.1)
+        self.ats = ApproximateTimeSynchronizer([self.sub1, self.sub2, self.sub3], queue_size=10, slop=0.5)
         self.ats.registerCallback(self.got_images)
         
     	# Converter object to convert ROS image <--> OpenCV image
@@ -42,7 +42,7 @@ class Edge_Detect:
         self.canny_cropped = cv2.Canny(self.cv_img1, 85, 255)
         
         # Dilate yellow, white images to capture edges better
-        self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7,7))
+        self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10,10))
         self.cv_img2 = cv2.dilate(self.cv_img2, self.bloat_kernel)
         self.cv_img3 = cv2.dilate(self.cv_img3, self.bloat_kernel)
          
@@ -51,16 +51,13 @@ class Edge_Detect:
         self.ylw_edges = cv2.bitwise_and(self.cv_img3, self.canny_cropped)
          
         # Do Hough transform on both ANDed images
-        # cv2.HoughLinesP( img, rho, theta, threshold, minLineLength, maxLineGap)
-        #self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50
-        #self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50)
+        # cv2.HoughLinesP( img, rho, theta, threshold, lines(?) minLineLength, maxLineGap)
+        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50)
+        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, 1, theta=numpy.pi/180.0, threshold=2, minLineLength=10, maxLineGap=50)
         
-        self.yt_hough = cv2.HoughLines(self.yt_edges, 1, numpy.pi/180, 10)
-        self.ylw_hough = cv2.HoughLines(self.ylw_edges, 1, numpy.pi/180, 10)
-         
         # Add lines from Hough transform to original cropped image
         # cv2.line(img, start_pt, end_pt, BGR_color, line_thicknes)
-        '''
+
         if self.yt_hough is not None:
             for line in self.yt_hough:
                 rospy.loginfo("Found line: "+str(line))
@@ -78,7 +75,13 @@ class Edge_Detect:
         else:
             # If no lines found in Hough transform - show img that it scanned
             self.ylw_lines = self.ylw_edges
+
+        
         '''
+        # cv2.HoughLines(img, rho, theta, threshold)
+        self.yt_hough = cv2.HoughLines(self.yt_edges, 1, numpy.pi/180, 5)
+        self.ylw_hough = cv2.HoughLines(self.ylw_edges, 1, numpy.pi/180, 5)
+        
         if self.yt_hough is not None:
             self.yt_lines = self.cv_img1
             for line in self.yt_hough:
@@ -112,6 +115,7 @@ class Edge_Detect:
                     self.ylw_lines = cv2.line(self.ylw_lines, (x1, y1), (x2, y2), (0, 0, 255), 2)
         else:
             self.ylw_lines = self.ylw_edges
+        '''
         
                     
          
