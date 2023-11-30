@@ -42,7 +42,7 @@ class Edge_Detect:
         self.canny_cropped = cv2.Canny(self.cv_img1, 85, 255)
         
         # Dilate yellow, white images to capture edges better
-        self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (10,10))
+        self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (12,12))
         self.cv_img2 = cv2.dilate(self.cv_img2, self.bloat_kernel)
         self.cv_img3 = cv2.dilate(self.cv_img3, self.bloat_kernel)
          
