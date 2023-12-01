@@ -58,16 +58,18 @@ class Edge_Detect:
         rho1 = 1
         theta1 = numpy.pi/180.0
         threshold1 = 1
-        lines1 = None
+        # lines1 = None
+        self.yt_hough = None
+        self.ylw_hough = None
         minLineLength1 = 1
         maxLineGap1 = 50
         
          
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, lines(?) minLineLength, maxLineGap)
-        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho1, theta1, threshold1, lines1, minLineLength1, maxLineGap1)
+        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho1, theta1, threshold1, numpy.array([]), minLineLength1, maxLineGap1)
         rospy.loginfo("Found: "+ str(self.yt_hough))
-        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho1, theta1, threshold1, lines1, minLineLength1, maxLineGap1)
+        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho1, theta1, threshold1, numpy.array([]), minLineLength1, maxLineGap1)
         rospy.loginfo("Found: "+ str(self.ylw_hough))
         
         # Add lines from Hough transform to original cropped image
