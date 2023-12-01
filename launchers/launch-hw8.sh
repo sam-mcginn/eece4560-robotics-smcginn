@@ -1,7 +1,7 @@
 #!/bin/bash
 
-HW_PACKAGE="homework8"
-HW_LAUNCH="hw8.launch"
+HW_PACKAGE="edge_detection"
+HW_LAUNCH="hw8_launcher.launch"
 
 source /environment.sh
 
