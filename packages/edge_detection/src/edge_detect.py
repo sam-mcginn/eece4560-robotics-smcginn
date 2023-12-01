@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import rospy
+import sys
 import numpy
 import math
 import cv2
@@ -38,7 +39,7 @@ class Edge_Detect:
         self.cv_img2 = self.bridge2.imgmsg_to_cv2(img2, "passthrough")
         self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "passthrough")
          
-        # Canny edge detection on cropped image
+        # Canny edge detection on cropped image (100,200)
         self.canny_cropped = cv2.Canny(self.cv_img1, 85, 255)
         
         # Dilate yellow, white images to capture edges better
@@ -54,9 +55,9 @@ class Edge_Detect:
          
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, lines(?) minLineLength, maxLineGap)
-        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=1, minLineLength=5, maxLineGap=50)
+        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=1, None, minLineLength=5, maxLineGap=50)
         rospy.loginfo("Found: "+ str(self.yt_hough))
-        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho=1, theta=numpy.pi/180.0, threshold=1, minLineLength=5, maxLineGap=50)
+        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho=1, theta=numpy.pi/180.0, threshold=1, None, minLineLength=5, maxLineGap=50)
         rospy.loginfo("Found: "+ str(self.ylw_hough))
         
         # Add lines from Hough transform to original cropped image
