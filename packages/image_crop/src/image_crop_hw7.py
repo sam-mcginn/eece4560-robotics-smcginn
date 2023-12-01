@@ -45,10 +45,14 @@ class Image_Crop:
         self.kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (2,2) )
         self.img_ylw = cv2.dilate(self.img_ylw, self.kernel)
         
+        # Convert back HSV --> BGR
+        #self.img_yt = cv2.cvtColor(self.img_yt, cv2.COLOR_HSV2BGR)
+        #self.img_ylw = cv2.cvtColor(self.img_ylw, cv2.COLOR_HSV2BGR)
+        
         # convert new image to ROS to send
-        self.crop_msg = self.bridge.cv2_to_imgmsg(self.img_hsv, "passthrough")
-        self.yt_msg = self.bridge.cv2_to_imgmsg(self.img_yt, "passthrough")
-        self.ylw_msg = self.bridge.cv2_to_imgmsg(self.img_ylw, "passthrough")
+        self.crop_msg = self.bridge.cv2_to_imgmsg(self.crop_img, "bgr8")
+        self.yt_msg = self.bridge.cv2_to_imgmsg(self.img_yt, "mono8")
+        self.ylw_msg = self.bridge.cv2_to_imgmsg(self.img_ylw, "mono8")
         
         # publish cropped images
         self.pub1.publish(self.crop_msg)

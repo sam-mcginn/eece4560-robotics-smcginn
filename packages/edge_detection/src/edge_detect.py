@@ -35,57 +35,57 @@ class Edge_Detect:
 
     def got_images(self, img1, img2, img3):
         # Convert ROS images --> OpenCV images
-        self.cv_img1 = self.bridge2.imgmsg_to_cv2(img1, "passthrough")
-        self.cv_img2 = self.bridge2.imgmsg_to_cv2(img2, "passthrough")
-        self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "passthrough")
+        cv_img1 = self.bridge2.imgmsg_to_cv2(img1, "bgr8")
+        cv_img2 = self.bridge2.imgmsg_to_cv2(img2, "mono8")
+        cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "mono8")
          
         # Canny edge detection on cropped image (100,200)
-        self.canny_cropped = cv2.Canny(self.cv_img1, 175, 250)
-        self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
-        self.pub1.publish(self.canny_img)
+        canny_cropped = cv2.Canny(cv_img1, 175, 250)
+        canny_img = self.bridge2.cv2_to_imgmsg(canny_cropped, "mono8")
+        self.pub1.publish(canny_img)
         
         # Dilate yellow, white images to capture edges better
-        self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (12,12))
-        self.cv_img2 = cv2.dilate(self.cv_img2, self.bloat_kernel)
-        self.cv_img3 = cv2.dilate(self.cv_img3, self.bloat_kernel)
+        bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (12,12))
+        cv_img2 = cv2.dilate(cv_img2, bloat_kernel)
+        cv_img3 = cv2.dilate(cv_img3, bloat_kernel)
         #self.cv_img2 = cv2.GaussianBlur(self.cv_img2, (3,3))
         #self.cv_img2 = cv2.GaussianBlur(self.cv_img2, (3,3))
          
         # AND canny cropped image with white, yellow images
-        self.yt_edges = cv2.bitwise_and(self.cv_img2, self.canny_cropped)
-        self.ylw_edges = cv2.bitwise_and(self.cv_img3, self.canny_cropped)
+        self.yt_edges = cv2.bitwise_and(cv_img2, canny_cropped)
+        self.ylw_edges = cv2.bitwise_and(cv_img3, canny_cropped)
         
         rho1 = 1
         theta1 = numpy.pi/180.0
-        threshold1 = 1
+        threshold1 = 10
         # lines1 = None
-        self.yt_hough = None
-        self.ylw_hough = None
-        minLineLength1 = 1
-        maxLineGap1 = 50
+        minLineLength1 = 10
+        maxLineGap1 = 10
         
          
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, lines(?) minLineLength, maxLineGap)
-        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho1, theta1, threshold1, numpy.array([]), minLineLength1, maxLineGap1)
+        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho1, theta1, threshold1, minLineLength=minLineLength1, maxLineGap=maxLineGap1)
         rospy.loginfo("Found: "+ str(self.yt_hough))
-        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho1, theta1, threshold1, numpy.array([]), minLineLength1, maxLineGap1)
+        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho1, theta1, threshold1, minLineLength=minLineLength1, maxLineGap=maxLineGap1)
         rospy.loginfo("Found: "+ str(self.ylw_hough))
         
         # Add lines from Hough transform to original cropped image
         # cv2.line(img, start_pt, end_pt, BGR_color, line_thickness)
 
         if self.yt_hough is not None:
-            self.yt_lines = self.output_lines(self.yt_edges, self.yt_hough)
+            yt_lines = self.output_lines(cv_img1, self.yt_hough)
         else:
             # If no lines found in Hough transform - show img that it scanned
-            self.yt_lines = self.yt_edges
+            self.yt_edges = cv2.cvtColor(self.yt_edges, COLOR_GRAY2BGR)
+            yt_lines = self.yt_edges
                 
         if self.ylw_hough is not None:
-            self.ylw_lines = self.output_lines(self.ylw_edges, self.ylw_hough)
+            ylw_lines = self.output_lines(cv_img1, self.ylw_hough)
         else:
             # If no lines found in Hough transform - show img that it scanned
-            self.ylw_lines = self.ylw_edges
+            self.ylw_edges = cv2.cvtColor(self.ylw_edges, COLOR_GRAY2BGR)
+            ylw_lines = self.ylw_edges
 
         
         '''
@@ -131,11 +131,11 @@ class Edge_Detect:
                     
          
         # Publish as ROS images
-        self.yt_ln_img = self.bridge2.cv2_to_imgmsg(self.yt_edges, "passthrough")
-        self.ylw_ln_img = self.bridge2.cv2_to_imgmsg(self.ylw_edges, "passthrough")
+        yt_ln_img = self.bridge2.cv2_to_imgmsg(yt_lines, "bgr8")
+        ylw_ln_img = self.bridge2.cv2_to_imgmsg(ylw_lines, "bgr8")
         
-        self.pub2.publish(self.yt_ln_img)
-        self.pub3.publish(self.ylw_ln_img)
+        self.pub2.publish(yt_ln_img)
+        self.pub3.publish(ylw_ln_img)
         
         
     def output_lines(self, original_image, lines):
