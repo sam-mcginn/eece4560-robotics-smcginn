@@ -40,10 +40,12 @@ class Edge_Detect:
         self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "passthrough")
          
         # Canny edge detection on cropped image (100,200)
-        self.canny_cropped = cv2.Canny(self.cv_img1, 85, 255)
+        self.canny_cropped = cv2.Canny(self.cv_img1, 100, 200)
+        self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
+        self.pub1.publish(self.canny_img)
         
         # Dilate yellow, white images to capture edges better
-        #self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (12,12))
+        self.bloat_kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (12,12))
         self.cv_img2 = cv2.dilate(self.cv_img2, self.bloat_kernel)
         self.cv_img3 = cv2.dilate(self.cv_img3, self.bloat_kernel)
         #self.cv_img2 = cv2.GaussianBlur(self.cv_img2, (3,3))
@@ -52,12 +54,20 @@ class Edge_Detect:
         # AND canny cropped image with white, yellow images
         self.yt_edges = cv2.bitwise_and(self.cv_img2, self.canny_cropped)
         self.ylw_edges = cv2.bitwise_and(self.cv_img3, self.canny_cropped)
+        
+        rho1 = 1
+        theta1 = numpy.pi/180.0
+        threshold1 = 1
+        lines1 = None
+        minLineLength1 = 5
+        maxLineGap1 = 50
+        
          
         # Do Hough transform on both ANDed images
         # cv2.HoughLinesP( img, rho, theta, threshold, lines(?) minLineLength, maxLineGap)
-        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho=1, theta=numpy.pi/180.0, threshold=1, None, minLineLength=5, maxLineGap=50)
+        self.yt_hough = cv2.HoughLinesP(self.yt_edges, rho1, theta1, threshold1, lines1, minLineLength1, maxLineGap1)
         rospy.loginfo("Found: "+ str(self.yt_hough))
-        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho=1, theta=numpy.pi/180.0, threshold=1, None, minLineLength=5, maxLineGap=50)
+        self.ylw_hough = cv2.HoughLinesP(self.ylw_edges, rho1, theta1, threshold1, lines1, minLineLength1, maxLineGap1)
         rospy.loginfo("Found: "+ str(self.ylw_hough))
         
         # Add lines from Hough transform to original cropped image
@@ -119,11 +129,9 @@ class Edge_Detect:
                     
          
         # Publish as ROS images
-        # FIX - debug
-        self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
         self.yt_ln_img = self.bridge2.cv2_to_imgmsg(self.yt_edges, "passthrough")
         self.ylw_ln_img = self.bridge2.cv2_to_imgmsg(self.ylw_edges, "passthrough")
-        self.pub1.publish(self.canny_img)
+        
         self.pub2.publish(self.yt_ln_img)
         self.pub3.publish(self.ylw_ln_img)
         
