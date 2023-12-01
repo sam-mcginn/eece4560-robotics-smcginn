@@ -40,7 +40,7 @@ class Edge_Detect:
         self.cv_img3 = self.bridge2.imgmsg_to_cv2(img3, "passthrough")
          
         # Canny edge detection on cropped image (100,200)
-        self.canny_cropped = cv2.Canny(self.cv_img1, 100, 200)
+        self.canny_cropped = cv2.Canny(self.cv_img1, 175, 250)
         self.canny_img = self.bridge2.cv2_to_imgmsg(self.canny_cropped, "passthrough")
         self.pub1.publish(self.canny_img)
         
@@ -59,7 +59,7 @@ class Edge_Detect:
         theta1 = numpy.pi/180.0
         threshold1 = 1
         lines1 = None
-        minLineLength1 = 5
+        minLineLength1 = 1
         maxLineGap1 = 50
         
          
