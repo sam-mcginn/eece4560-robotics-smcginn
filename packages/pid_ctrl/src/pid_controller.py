@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
 import rospy
 import math
-from std_msgs import Float32
+import time
+from std_msgs.msg import Float32
 
 class PID_Ctrl:
     def __init__(self):
         # Gain parameters
-        self.kp = 0;
-        self.ki = 0;
-        self.kd = 0;
+        self.kp = 0.5
+        self.ki = 0
+        self.kd = 0
         
-        self.prev_error;
-        self.error_total;
+        self.prev_error = 0
+        self.prev_time = rospy.get_time()
+        self.error_total = 0
         
         # Publish to controller, subscribe to error
         self.pub = rospy.Publisher('control_input', Float32, queue_size=10)
         rospy.Subscriber('error', Float32, self.callback_pid)
         
-    def callback_pid(self, error):
-        dt = 1
+    def callback_pid(self, msg):
+        dt = rospy.get_time() - self.prev_time()
+        error = msg.data
+        self.prev_time = rospy.get_time()
         
         # Calculate proportional
         proportional = self.kp*error

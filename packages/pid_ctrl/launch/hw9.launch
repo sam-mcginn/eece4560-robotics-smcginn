@@ -2,5 +2,6 @@
 
 <include file="$(find controls_hw)/launch/start_dynamics.launch" />
 <node pkg="pid_ctrl" type="pid_controller.py" name="pid_ctrl" />
+<param name="controller_ready" type="str" value="ready" />
 
 </launch>
