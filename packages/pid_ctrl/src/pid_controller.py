@@ -7,9 +7,9 @@ from std_msgs.msg import Float32
 class PID_Ctrl:
     def __init__(self):
         # Gain parameters
-        self.kp = 0.25
-        self.ki = 0.025
-        self.kd = 0
+        self.kp = 0.2
+        self.ki = 0.01205
+        self.kd = 0.6
         
         self.prev_error = 0
         self.prev_time = rospy.get_time()
