@@ -7,7 +7,7 @@ from std_msgs.msg import Float32
 class PID_Ctrl:
     def __init__(self):
         # Gain parameters
-        self.kp = 0.5
+        self.kp = 0.25
         self.ki = 0
         self.kd = 0
         
@@ -20,22 +20,23 @@ class PID_Ctrl:
         rospy.Subscriber('error', Float32, self.callback_pid)
         
     def callback_pid(self, msg):
-        dt = rospy.get_time() - self.prev_time()
+        dt = rospy.get_time() - self.prev_time
         error = msg.data
-        self.prev_time = rospy.get_time()
         
         # Calculate proportional
         proportional = self.kp*error
         
         # Calculate integral
-        # FIX
         self.error_total = self.error_total + error
         integral = (self.ki)*(self.error_total)*dt
         
         
         # Calculate derivative
-        # FIX
         derivative = (self.kd)*(error - self.prev_error)/(dt)
+        
+        # Update prev_error, prev_time
+        self.prev_error = error
+        self.prev_time = rospy.get_time()
         
         gain = Float32()
         gain = proportional + integral + derivative
