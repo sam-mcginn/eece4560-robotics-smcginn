@@ -8,7 +8,7 @@ class PID_Ctrl:
     def __init__(self):
         # Gain parameters
         self.kp = 0.25
-        self.ki = 0
+        self.ki = 0.025
         self.kd = 0
         
         self.prev_error = 0
