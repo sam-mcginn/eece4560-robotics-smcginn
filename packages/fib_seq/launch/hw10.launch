@@ -6,5 +6,7 @@
 	<include file="$(find example_action_server)/launch/fibonacci.launch" />
 	
 	<node pkg="fib_seq" type="fib_seq.py" name="fibonacci_client" />
+	
+	<node pkg="rqt_console" name="rqt_console" type="rqt_console" />
 
 </launch>
