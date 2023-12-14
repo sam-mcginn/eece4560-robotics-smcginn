@@ -56,7 +56,7 @@ class Fibonacci_Seq():
         
         # Request service
         self.prev_time = rospy.get_time()
-        response1 = calc_fibonacci(length)
+        response1 = get_fibonacci(length)
         self.request_time = rospy.get_time() - self.prev_time
         
         # Get response
