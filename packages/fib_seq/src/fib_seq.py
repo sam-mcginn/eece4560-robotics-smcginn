@@ -6,29 +6,31 @@ import actionlib
 import example_action_server.msg
 # import action messages to be used
 
-class Fibonacci_Seq();
+class Fibonacci_Seq():
     def __init__(self):
-    	# Time variables to track:
-    	self.prev_time = 0;
-    	self.request_time = 0;
-    	self.response_time = 0;
-    
+        # Time variables to track:
+        self.prev_time = 0
+        self.request_time = 0
+        self.response_time = 0
+        
         # Setup proxy to example_service service:
         
         # Setup client to the action from example_action_server:
         # type = example_action_server.msg.FibonacciAction
-        print("starting client")
+        print("Starting client")
         self.client = actionlib.SimpleActionClient('fibonacci', example_action_server.msg.FibonacciAction)
         
         # Request Fibonacci sequences from both service and action:
         # Order 3 (three elements long)
         fib_result = self.fibonacci_client(3)
-        info_msg = "Action result for Fib(3): "+fib_result+", request time = "+self.request_time+", response time = "+self.response_time
+        info_msg = "Action result for Fib(3): "+str(fib_result)+", request time = "+str(self.request_time)+", response time = "+str(self.response_time)
+        print(info_msg)
         rospy.loginfo(info_msg)
         
         # Order 15 (15 elements long)
         fib_result = self.fibonacci_client(15)
-        info_msg = "Action result for Fib(15): "+fib_result+", request time = "+self.request_time+", response time = "+self.response_time
+        info_msg = "Action result for Fib(15): "+str(fib_result)+", request time = "+str(self.request_time)+", response time = "+str(self.response_time)
+        print(info_msg)
         rospy.loginfo(info_msg)
         
         # Record the time it takes to:
