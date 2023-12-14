@@ -1,4 +1,10 @@
 <launch>
+	<!-- pkg example_service, node example_service_node.py, service Fibonacci.srv, launch fibonacci.launch -->
+	<include file="$(find example_service)/launch/fibonacci.launch"/>
+	
+	<!-- pkg example_action_server, nodes example_action_server_node.py (action server) and example_client.py (base client on this), launch fibonacci.launch -->
+	<include file="$(find example_action_server)/launch/fibonacci.launch" />
+	
 	<node pkg="fib_seq" type="fib_seq.py" name="fibonacci_client" />
 
 </launch>
